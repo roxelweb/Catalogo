@@ -1,23 +1,36 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+---
+import "@styles/global.css";
+import logo from "@assets/logo.svg";
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Roxel Essence | Catálogo de Perfumes",
+  description = "Perfumes de calidad a precios accesibles: decants, árabes, testers y extractos.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href={logo.src} />
+    <link rel="apple-touch-icon" href={logo.src} />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body class="min-h-svh bg-roxel-surface text-roxel-ink font-sans antialiased">
+    <a
+      href="#contenido-principal"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-lg focus:bg-roxel-dark-950 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-roxel-gold-metallic focus:outline-2 focus:outline-roxel-gold-400"
+    >
+      Saltar al contenido principal
+    </a>
+    <slot />
+  </body>
+</html>
