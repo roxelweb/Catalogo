@@ -62,6 +62,10 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+
   .roxel-carousel-track {
     scroll-behavior: smooth;
   }

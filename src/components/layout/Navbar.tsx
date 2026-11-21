@@ -1,6 +1,6 @@
+import type { MouseEvent } from "react";
 import logoImg from "@assets/logo.svg";
 import { CartButton } from "@components/cart/CartButton";
-import { NavMenuPopover } from "./NavMenuPopover";
 import { resolveImageSrc, type ImageSource, type NavItem } from "@components/types";
 
 export interface NavbarProps {
@@ -10,17 +10,10 @@ export interface NavbarProps {
   cartCount?: number;
   onCartClick?: () => void;
   navItems?: NavItem[];
-  onMenuClick?: () => void;
   className?: string;
 }
 
-const DEFAULT_NAV_ITEMS: NavItem[] = [
-  { label: "Decants", href: "#decants" },
-  { label: "Árabes", href: "#arabes" },
-  { label: "Testers", href: "#testers" },
-  { label: "Extractos", href: "#extractos" },
-  { label: "Contacto", href: "#contacto" },
-];
+const DEFAULT_NAV_ITEMS: NavItem[] = [{ label: "Contacto", href: "#contacto" }];
 
 export function Navbar({
   logoSrc = logoImg,
@@ -29,9 +22,25 @@ export function Navbar({
   cartCount = 0,
   onCartClick,
   navItems = DEFAULT_NAV_ITEMS,
-  onMenuClick,
   className = "",
 }: NavbarProps) {
+  const handleLogoClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (
+      typeof window !== "undefined" &&
+      logoHref === "/" &&
+      window.location.pathname === "/"
+    ) {
+      event.preventDefault();
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+      window.scrollTo({
+        top: 0,
+        behavior: prefersReducedMotion ? "auto" : "smooth",
+      });
+    }
+  };
+
   return (
     <header
       className={`sticky top-0 z-30 w-full bg-roxel-dark-950 text-roxel-ink-inverse border-b border-roxel-dark-800 ${className}`}
@@ -39,6 +48,7 @@ export function Navbar({
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
         <a
           href={logoHref}
+          onClick={handleLogoClick}
           className="inline-flex items-center shrink-0 rounded-md p-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-roxel-gold-400"
         >
           <img
@@ -51,12 +61,28 @@ export function Navbar({
           />
         </a>
 
-        <div className="flex items-center gap-2 sm:gap-3">
-          <CartButton count={cartCount} onClick={onCartClick} />
-
-          <NavMenuPopover navItems={navItems} onMenuClick={onMenuClick} />
-        </div>
+        <CartButton count={cartCount} onClick={onCartClick} />
       </div>
+
+      {navItems.length > 0 ? (
+        <nav
+          aria-label="Categorías y contacto"
+          className="w-full bg-roxel-dark-900 border-t border-roxel-dark-800/80"
+        >
+          <ul className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-2.5 flex flex-wrap items-center justify-center gap-x-6 gap-y-1.5 sm:gap-x-8">
+            {navItems.map((item) => (
+              <li key={item.href}>
+                <a
+                  href={item.href}
+                  className="inline-block text-xs sm:text-sm font-medium text-roxel-gold-300 hover:text-roxel-gold-200 transition-colors rounded-sm px-1 py-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-roxel-gold-400"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      ) : null}
     </header>
   );
 }
