@@ -1,14 +1,38 @@
 ---
-import { CatalogSection, Footer, Hero, StoreHeader } from "@/components";
-import { CATALOG_CATEGORIES, DELIVERY_METHOD_OPTIONS } from "@/data";
+import { CatalogSection, Footer, StoreHeader } from "@/components";
+import {
+  buildStoreStructuredData,
+  CATALOG_CATEGORIES,
+  DELIVERY_METHOD_OPTIONS,
+  extractExternalImageOrigins,
+  SITE_CONFIG,
+} from "@/data";
+import Hero from "@components/layout/Hero.astro";
 import Layout from "@layouts/Layout.astro";
+
+const jsonLd = buildStoreStructuredData({
+  site: Astro.site,
+  pageTitle: SITE_CONFIG.defaultTitle,
+  pageDescription: SITE_CONFIG.defaultDescription,
+  categories: CATALOG_CATEGORIES,
+});
+
+const dnsPrefetchOrigins = extractExternalImageOrigins(CATALOG_CATEGORIES);
 ---
 
-<Layout title="Roxel Essence | Catálogo de Perfumes">
+<Layout
+  title={SITE_CONFIG.defaultTitle}
+  description={SITE_CONFIG.defaultDescription}
+  jsonLd={jsonLd}
+  dnsPrefetchOrigins={dnsPrefetchOrigins}
+>
   <StoreHeader client:load deliveryOptions={DELIVERY_METHOD_OPTIONS} />
   <Hero />
   <main id="contenido-principal" class="bg-roxel-surface overflow-x-clip">
-    <CatalogSection client:load categories={CATALOG_CATEGORIES} />
+    <CatalogSection
+      client:visible={{ rootMargin: "200px" }}
+      categories={CATALOG_CATEGORIES}
+    />
   </main>
   <Footer id="contacto" />
 </Layout>
