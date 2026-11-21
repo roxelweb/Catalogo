@@ -1,0 +1,165 @@
+---
+import { getImage } from "astro:assets";
+import backgroundTextureDesktop from "@assets/background_texture_desktop.webp";
+import backgroundTextureMobile from "@assets/background_texture_mobile.png";
+import heroLogo from "@assets/Logotipo Roxel Essence Elegante.png";
+
+interface Props {
+  logoAlt?: string;
+  className?: string;
+}
+
+const {
+  logoAlt = "Roxel Essence — Perfumes árabes, decants, testers y extractos",
+  className = "",
+} = Astro.props;
+
+const [
+  desktopBgAvif,
+  desktopBgWebp,
+  mobileBgAvif,
+  mobileBgWebp,
+  logoAvif1x,
+  logoAvif2x,
+  logoWebp1x,
+  logoWebp2x,
+] = await Promise.all([
+  getImage({
+    src: backgroundTextureDesktop,
+    width: 1600,
+    format: "avif",
+    quality: 65,
+  }),
+  getImage({
+    src: backgroundTextureDesktop,
+    width: 1600,
+    format: "webp",
+    quality: 75,
+  }),
+  getImage({
+    src: backgroundTextureMobile,
+    width: 768,
+    format: "avif",
+    quality: 65,
+  }),
+  getImage({
+    src: backgroundTextureMobile,
+    width: 768,
+    format: "webp",
+    quality: 75,
+  }),
+  getImage({
+    src: heroLogo,
+    width: 448,
+    format: "avif",
+    quality: 80,
+  }),
+  getImage({
+    src: heroLogo,
+    width: 896,
+    format: "avif",
+    quality: 80,
+  }),
+  getImage({
+    src: heroLogo,
+    width: 448,
+    format: "webp",
+    quality: 85,
+  }),
+  getImage({
+    src: heroLogo,
+    width: 896,
+    format: "webp",
+    quality: 85,
+  }),
+]);
+
+const logoSizes = "(max-width: 639px) 288px, (max-width: 767px) 384px, 448px";
+---
+
+<section
+  class={`relative overflow-hidden min-h-[calc(100svh-4rem)] flex flex-col justify-center bg-roxel-dark-950 text-roxel-ink-inverse ${className}`}
+>
+  <picture>
+    <source
+      media="(min-width: 640px)"
+      srcset={desktopBgAvif.src}
+      type="image/avif"
+      width={desktopBgAvif.attributes.width}
+      height={desktopBgAvif.attributes.height}
+    />
+    <source
+      media="(min-width: 640px)"
+      srcset={desktopBgWebp.src}
+      type="image/webp"
+      width={desktopBgWebp.attributes.width}
+      height={desktopBgWebp.attributes.height}
+    />
+    <source
+      srcset={mobileBgAvif.src}
+      type="image/avif"
+      width={mobileBgAvif.attributes.width}
+      height={mobileBgAvif.attributes.height}
+    />
+    <img
+      src={mobileBgWebp.src}
+      alt=""
+      aria-hidden="true"
+      width={mobileBgWebp.attributes.width}
+      height={mobileBgWebp.attributes.height}
+      fetchpriority="high"
+      decoding="async"
+      class="absolute inset-0 h-full w-full object-cover opacity-80 pointer-events-none select-none"
+    />
+  </picture>
+
+  <div
+    aria-hidden="true"
+    class="absolute inset-0 bg-roxel-dark-950/45 pointer-events-none"
+  ></div>
+
+  <div
+    class="relative z-10 mx-auto max-w-4xl px-4 sm:px-6 py-20 sm:py-28 flex flex-col items-center text-center gap-5"
+  >
+    <h1 class="m-0 roxel-hero-logo">
+      <picture>
+        <source
+          type="image/avif"
+          srcset={`${logoAvif1x.src} 448w, ${logoAvif2x.src} 896w`}
+          sizes={logoSizes}
+        />
+        <source
+          type="image/webp"
+          srcset={`${logoWebp1x.src} 448w, ${logoWebp2x.src} 896w`}
+          sizes={logoSizes}
+        />
+        <img
+          src={logoWebp1x.src}
+          srcset={`${logoWebp1x.src} 448w, ${logoWebp2x.src} 896w`}
+          sizes={logoSizes}
+          alt={logoAlt}
+          width={logoWebp1x.attributes.width}
+          height={logoWebp1x.attributes.height}
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+          draggable="false"
+          class="w-72 sm:w-96 md:w-[28rem] max-w-full h-auto object-contain select-none"
+        />
+      </picture>
+    </h1>
+
+    <p
+      class="text-center text-sm sm:text-base leading-relaxed text-roxel-ink-inverse-muted max-w-2xl mx-auto roxel-hero-tagline"
+    >
+      Descubrí perfumes árabes, decants, testers y extractos de calidad a
+      precios accesibles.<br class="hidden sm:inline" /> Nos importa ofrecerte
+      variedad, cercanía y transparencia en cada compra.
+    </p>
+  </div>
+
+  <div
+    aria-hidden="true"
+    class="absolute inset-x-0 bottom-0 h-16 sm:h-24 bg-linear-to-b from-transparent via-roxel-dark-950/60 to-roxel-surface pointer-events-none"
+  ></div>
+</section>

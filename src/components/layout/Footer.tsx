@@ -1,3 +1,4 @@
+import { SITE_CONFIG } from "../../data/site";
 import { InstagramIcon, TikTokIcon, WhatsAppIcon } from "../ui/Icons";
 import type { SocialLink } from "../types";
 
@@ -12,14 +13,7 @@ export interface FooterProps {
   className?: string;
 }
 
-const DEFAULT_SOCIAL_LINKS: SocialLink[] = [
-  { platform: "tiktok", href: "https://www.tiktok.com", label: "TikTok" },
-  {
-    platform: "instagram",
-    href: "https://www.instagram.com",
-    label: "Instagram",
-  },
-];
+const DEFAULT_SOCIAL_LINKS: SocialLink[] = [...SITE_CONFIG.socialLinks];
 
 function renderSocialIcon(platform: SocialLink["platform"]) {
   switch (platform) {
@@ -35,9 +29,9 @@ function renderSocialIcon(platform: SocialLink["platform"]) {
 export function Footer({
   id,
   title = "Contacto",
-  schedule = "Lunes a viernes de 9 a 20hs",
-  phoneDisplay = "+54 1126-8577",
-  phoneHref = "https://wa.me/5411268577",
+  schedule = SITE_CONFIG.schedule,
+  phoneDisplay = SITE_CONFIG.phoneDisplay,
+  phoneHref = SITE_CONFIG.whatsappUrl,
   socialHeading = "Seguinos en nuestras redes sociales",
   socialLinks = DEFAULT_SOCIAL_LINKS,
   className = "",
@@ -52,19 +46,21 @@ export function Footer({
           {title}
         </h2>
 
-        <p className="text-xs sm:text-sm text-roxel-ink-inverse-muted mb-3">
-          {schedule}
-        </p>
+        <address className="not-italic">
+          <p className="text-xs sm:text-sm text-roxel-ink-inverse-muted mb-3">
+            {schedule}
+          </p>
 
-        <a
-          href={phoneHref}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2.5 text-sm font-medium text-roxel-ink-inverse hover:text-roxel-gold-metallic transition-colors rounded-md py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-roxel-gold-400"
-        >
-          <WhatsAppIcon className="size-10 shrink-0" />
-          <span>{phoneDisplay}</span>
-        </a>
+          <a
+            href={phoneHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2.5 text-sm font-medium text-roxel-ink-inverse hover:text-roxel-gold-metallic transition-colors rounded-md py-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-roxel-gold-400"
+          >
+            <WhatsAppIcon className="size-10 shrink-0" />
+            <span>{phoneDisplay}</span>
+          </a>
+        </address>
 
         <p className="mt-6 mb-3 text-xs sm:text-sm text-roxel-ink-inverse-muted">
           {socialHeading}

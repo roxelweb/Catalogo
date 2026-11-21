@@ -39,12 +39,14 @@ export function Navbar({
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
         <a
           href={logoHref}
-          aria-label={logoAlt}
           className="inline-flex items-center shrink-0 rounded-md p-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-roxel-gold-400"
         >
           <img
             src={resolveImageSrc(logoSrc)}
             alt={logoAlt}
+            width={36}
+            height={36}
+            decoding="async"
             className="h-9 w-9 object-contain"
           />
         </a>

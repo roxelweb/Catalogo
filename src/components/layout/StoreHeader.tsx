@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { SITE_CONFIG } from "../../data/site";
 import { buildWhatsAppCheckoutUrl, useCart } from "../../hooks";
 import { CartModal } from "../cart/CartModal";
 import { Navbar } from "./Navbar";
@@ -18,7 +19,7 @@ export interface StoreHeaderProps {
 
 export function StoreHeader({
   deliveryOptions,
-  whatsappPhone = "5411268577",
+  whatsappPhone = SITE_CONFIG.whatsappPhone,
   initialItems,
   navItems,
 }: StoreHeaderProps) {
