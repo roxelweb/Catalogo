@@ -192,6 +192,7 @@ Todo movimiento no esencial en CSS debe ir envuelto en `@media (prefers-reduced-
 - **Carrusel (`ProductCarousel`)**: `scroll-behavior: smooth` en CSS cuando no hay preferencia de movimiento reducido, y `behavior: prefersReducedMotion ? "auto" : "smooth"` en JS (`scrollByStep`).
 - **Menú popover (`Navbar`)**: transición de `150ms ease` en `opacity`, `translate` (`0 -0.25rem` → `0 0`), `display` y `overlay` usando `transition-behavior: allow-discrete` y `@starting-style`.
 - **Pulso radar de WhatsApp (`.roxel-whatsapp-radar`)**: animación `roxel-whatsapp-radar 5s cubic-bezier(0, 0, 0.2, 1) infinite` (escala `1` → `1.75` con opacidad `0.65` → `0` en el primer `24%` del ciclo; permanece en reposo el resto del intervalo). Si `prefers-reduced-motion: reduce`, queda con `opacity: 0`.
+- **Explosión radial en insignia del carrito (`CartButton`)**: al agregar un ítem al carrito (`CART_ITEM_ADDED_EVENT` o incremento de cantidad tras hidratación), `.roxel-cart-badge-pop` anima `scale` (`1` → `1.24` → `0.94` → `1` en `420ms`) sobre la identidad base `.roxel-cart-badge` (`scale: 1`), y 8 partículas doradas `.roxel-cart-burst-ray` (`roxel-gold-400`, cada `45deg`) se expanden radialmente como cápsulas y vuelven a contraerse en círculos antes de desvanecerse (`650ms`). Todo el movimiento está envuelto en `@media (prefers-reduced-motion: no-preference)`.
 - **Toast de agregado al carrito (`CatalogSection`)**: aparece en `bottom-24 right-4` con `bg-roxel-dark-900 text-roxel-ink-inverse border border-roxel-gold-400/50 shadow-fab` y se limpia automáticamente tras `2600 ms`.
 
 ---
@@ -225,7 +226,7 @@ Reutilizar siempre los componentes exportados por `@/components` (`src/component
 - **`ProductCarousel` (`ProductCarousel.tsx`)**: track horizontal `.roxel-carousel-track` con `CarouselArrowButton` prev/next superpuestos (`-inset-x-3 sm:-inset-x-4`), `ResizeObserver`, `scrollend` (con fallback debounced `150ms`) y rescate automático de foco si el botón activo queda deshabilitado al llegar al extremo.
 - **`ProductCard` (`ProductCard.tsx`)**: tarjeta vertical con selector de `VolumeBadge` arriba, imagen `aspect-[4/3]` al centro, bloque inferior alineado abajo (`mt-auto`) con título, descripción y precio opcional, y `AddToCartButton` al pie.
 - **`VolumeBadge` (`VolumeBadge.tsx`)**: pill interactiva (`<button aria-pressed>`) o estática (`<span>`). Variante `"dark"` por defecto; estado seleccionado o variante `"gold"` usa `bg-roxel-gold-400 text-roxel-ink font-semibold ring-2 ring-roxel-ink/25`.
-- **`AddToCartButton` (`AddToCartButton.tsx`)**: extiende `Button variant="gold"` con `CartIcon` e inversión de alto contraste en interacción (`hover:bg-roxel-dark-900! hover:text-roxel-gold-400! active:bg-roxel-dark-800!`).
+- **`AddToCartButton` (`AddToCartButton.tsx`)**: extiende `Button variant="gold"` con `CartIcon` e inversión de alto contraste en interacción (`hover:bg-roxel-dark-900! hover:text-roxel-gold-400! active:bg-roxel-dark-800! active:text-roxel-gold-400!`).
 - **`FilterButton` (`FilterButton.tsx`)**: extiende `Button variant="dark" size="sm" pill` (usado con `text-roxel-gold-300!` en `CatalogSection`), `FilterIcon` y contador dorado (`bg-roxel-gold-400 text-roxel-ink`) cuando hay filtros activos.
 - **`CarouselArrowButton` (`CarouselArrowButton.tsx`)**: botón circular oscuro (`w-9 h-9 sm:w-10 sm:h-10`) con `shadow-fab`.
 
@@ -256,6 +257,9 @@ Reutilizar siempre los componentes exportados por `@/components` (`src/component
 | `.roxel-dialog` | En `<dialog>` modal (`CartModal`). | `overscroll-behavior: contain` en modal y `::backdrop` con `rgb(0 0 0 / 0.5)`. |
 | `.roxel-select` | En `<select>` de `SelectField`. | Mejora progresiva `@supports (appearance: base-select)` con picker y opciones estilizadas en tokens Roxel. |
 | `.roxel-whatsapp-radar` | En el `<span>` de onda de `WhatsAppButton`. | Animación de radar cada `5s` solo si `prefers-reduced-motion: no-preference`. |
+| `.roxel-cart-badge` | En el `<span>` del contador numérico dentro de `CartButton`. | Fija `scale: 1` como transformación identidad base para evitar cambios de stacking context al animar el pulso. |
+| `.roxel-cart-badge-pop` | En el badge de `CartButton` al disparar el agregado al carrito. | Pulso sutil (`scale` `1` → `1.24` → `0.94` → `1` en `420ms`) bajo `prefers-reduced-motion: no-preference`. |
+| `.roxel-cart-burst-ray` | En cada una de las 8 partículas radiales del burst en `CartButton`. | Puntos dorados (`roxel-gold-400`) que se estiran en cápsulas hacia afuera, vuelven a contraerse en círculos y se desvanecen (`650ms`) bajo `prefers-reduced-motion: no-preference`. |
 
 - **Barras de desplazamiento estilizadas (`html`, `.roxel-dialog`, `.roxel-nav-popover`, `.roxel-select::picker(select)`)**:
   - Se aplican dentro de `@media (hover: hover) and (pointer: fine)` para preservar en móvil/táctil los scrollbars flotantes nativos de `0px` sin provocar saltos de layout.
