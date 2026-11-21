@@ -1,3 +1,4 @@
+import { SITE_CONFIG } from "../../data/site";
 import { WhatsAppIcon2 } from "./Icons";
 
 export interface WhatsAppButtonProps {
@@ -17,7 +18,7 @@ function buildWhatsAppUrl(phoneNumber: string, message?: string): string {
 }
 
 export function WhatsAppButton({
-  phoneNumber = "5411268577",
+  phoneNumber = SITE_CONFIG.whatsappPhone,
   message,
   href,
   floating = true,

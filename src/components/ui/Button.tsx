@@ -46,7 +46,7 @@ export function Button({
     <button
       ref={ref}
       type={type}
-      className={`roxel-control inline-flex items-center justify-center gap-2 font-semibold transition-colors touch-manipulation cursor-pointer select-none focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-45 disabled:cursor-not-allowed ${
+      className={`roxel-control inline-flex items-center justify-center gap-2 font-semibold transition-[color,background-color,border-color,transform] duration-150 motion-safe:active:enabled:scale-[0.98] touch-manipulation cursor-pointer select-none focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-45 disabled:cursor-not-allowed ${
         VARIANT_CLASSES[variant]
       } ${SIZE_CLASSES[size]} ${pill ? "rounded-full" : "rounded-lg"} ${
         fullWidth ? "w-full" : ""
