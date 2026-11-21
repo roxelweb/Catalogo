@@ -17,6 +17,7 @@ export {
 export {
   buildCartItemId,
   buildWhatsAppCheckoutUrl,
+  CART_ITEM_ADDED_EVENT,
   CART_STORAGE_KEY,
   parsePriceString,
   sanitizeCartItems,

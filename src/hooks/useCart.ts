@@ -6,10 +6,12 @@ import {
   type ImageSource,
   type Product,
 } from "../components/types";
+import { SITE_CONFIG } from "../data/site";
 import { useHydrated } from "./useHydrated";
 import { useLocalStorage } from "./useLocalStorage";
 
 export const CART_STORAGE_KEY = "roxel:cart:v1";
+export const CART_ITEM_ADDED_EVENT = "roxel:cart:item-added";
 
 const EMPTY_CART: CartItem[] = [];
 
@@ -143,27 +145,36 @@ export function parsePriceString(price?: string): number {
 
 export function buildWhatsAppCheckoutUrl(
   data: CartCheckoutData,
-  phoneNumber = "5411268577",
+  phoneNumber = SITE_CONFIG.whatsappPhone,
 ): string {
   const digits = phoneNumber.replace(/\D/g, "");
-  const lines = data.items.map((item) => {
+  const productBlocks = data.items.map((item, index) => {
     const title = `${item.brand} - ${item.name}${
       item.volume ? ` - ${item.volume}` : ""
     }`;
     const subtotal = formatCurrency(item.unitPrice * item.quantity, {
-      spaceAfterSymbol: true,
+      spaceAfterSymbol: false,
     });
-    return `- ${item.quantity}x ${title} (${subtotal})`;
+    return `${index + 1}. ${title}\nCantidad: ${item.quantity}\nSubtotal: ${subtotal}`;
   });
 
   const message = [
-    "Hola! Quiero realizar el siguiente pedido:",
+    "¡Hola! Te paso mi pedido:",
     "",
-    ...lines,
+    "*Datos de la compra:*",
     "",
-    `Total: ${formatCurrency(data.total, { spaceAfterSymbol: false })}`,
-    `Nombre: ${data.fullName}`,
-    `Método de entrega: ${data.deliveryMethod}`,
+    "• Nombre completo:",
+    data.fullName,
+    "",
+    "• Método de entrega:",
+    data.deliveryMethod,
+    "",
+    "• *Productos:*",
+    "",
+    productBlocks.join("\n\n"),
+    "",
+    "",
+    `*TOTAL de la compra: ${formatCurrency(data.total, { spaceAfterSymbol: false })}*`,
   ].join("\n");
 
   return `https://wa.me/${digits}?text=${encodeURIComponent(message)}`;
@@ -239,6 +250,10 @@ export function useCart(options: UseCartOptions = {}): UseCartReturn {
             : item,
         );
       });
+
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new CustomEvent(CART_ITEM_ADDED_EVENT));
+      }
     },
     [maxQuantityPerItem, setItems],
   );
