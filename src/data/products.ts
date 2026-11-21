@@ -48,6 +48,7 @@ export interface CatalogProduct extends Product {
 export interface ProductCategorySection {
   id: ProductCategoryId;
   title: string;
+  description?: string;
   products: CatalogProduct[];
 }
 
@@ -104,9 +105,9 @@ export const DECANTS_PRODUCTS: CatalogProduct[] = [
     ],
   },
   {
-    id: "decant-lataffa-emaan",
+    id: "decant-lattafa-emaan",
     category: "decants",
-    brand: "Lataffa",
+    brand: "Lattafa",
     name: "Emaan",
     description: "Perfume intenso, unisex",
     gender: "unisex",
@@ -114,7 +115,7 @@ export const DECANTS_PRODUCTS: CatalogProduct[] = [
     unitPrice: 48500,
     price: formatCurrency(48500, { spaceAfterSymbol: true }),
     image: PERFUME_IMAGES.classicGlassBottle,
-    imageAlt: "Perfume Lataffa Emaan en frasco de vidrio clásico",
+    imageAlt: "Perfume Lattafa Emaan en frasco de vidrio clásico",
     volumes: [
       { label: "100 ml", variant: "dark" },
       { label: "150 ml", variant: "dark" },
@@ -158,9 +159,9 @@ export const DECANTS_PRODUCTS: CatalogProduct[] = [
 
 export const ARABES_PRODUCTS: CatalogProduct[] = [
   {
-    id: "arabe-lataffa-hayaati-black",
+    id: "arabe-lattafa-hayaati-black",
     category: "arabes",
-    brand: "Lataffa",
+    brand: "Lattafa",
     name: "Hayaati Black",
     description: "Perfume intenso, unisex",
     gender: "unisex",
@@ -168,16 +169,16 @@ export const ARABES_PRODUCTS: CatalogProduct[] = [
     unitPrice: 46000,
     price: formatCurrency(46000, { spaceAfterSymbol: true }),
     image: PERFUME_IMAGES.noirCutout,
-    imageAlt: "Perfume Lataffa Hayaati Black",
+    imageAlt: "Perfume Lattafa Hayaati Black",
     volumes: [
       { label: "100 ml", variant: "dark" },
       { label: "150 ml", variant: "dark" },
     ],
   },
   {
-    id: "arabe-lataffa-hayaati-gold",
+    id: "arabe-lattafa-hayaati-gold",
     category: "arabes",
-    brand: "Lataffa",
+    brand: "Lattafa",
     name: "Hayaati Gold",
     description: "Perfume intenso, masculino",
     gender: "masculino",
@@ -185,13 +186,13 @@ export const ARABES_PRODUCTS: CatalogProduct[] = [
     unitPrice: 49500,
     price: formatCurrency(49500, { spaceAfterSymbol: true }),
     image: PERFUME_IMAGES.goldCutout,
-    imageAlt: "Perfume Lataffa Hayaati Gold",
+    imageAlt: "Perfume Lattafa Hayaati Gold",
     volumes: [{ label: "100 ml", variant: "gold" },  { label: "150 ml", variant: "dark" },],
   },
   {
-    id: "arabe-lataffa-mayar",
+    id: "arabe-lattafa-mayar",
     category: "arabes",
-    brand: "Lataffa",
+    brand: "Lattafa",
     name: "Mayar",
     description: "Perfume suave, femenino",
     gender: "femenino",
@@ -199,7 +200,7 @@ export const ARABES_PRODUCTS: CatalogProduct[] = [
     unitPrice: 47000,
     price: formatCurrency(47000, { spaceAfterSymbol: true }),
     image: PERFUME_IMAGES.floralCutout,
-    imageAlt: "Perfume Lataffa Mayar",
+    imageAlt: "Perfume Lattafa Mayar",
     volumes: [
       { label: "100 ml", variant: "dark" },
       { label: "150 ml", variant: "dark" },
@@ -223,9 +224,9 @@ export const ARABES_PRODUCTS: CatalogProduct[] = [
     ],
   },
   {
-    id: "arabe-lataffa-khamrah",
+    id: "arabe-lattafa-khamrah",
     category: "arabes",
-    brand: "Lataffa",
+    brand: "Lattafa",
     name: "Khamrah",
     description: "Perfume intenso, unisex",
     gender: "unisex",
@@ -233,13 +234,13 @@ export const ARABES_PRODUCTS: CatalogProduct[] = [
     unitPrice: 58000,
     price: formatCurrency(58000, { spaceAfterSymbol: true }),
     image: PERFUME_IMAGES.amberBlackBottle,
-    imageAlt: "Perfume Lataffa Khamrah",
+    imageAlt: "Perfume Lattafa Khamrah",
     volumes: [{ label: "100 ml", variant: "gold" }],
   },
   {
-    id: "arabe-lataffa-yara",
+    id: "arabe-lattafa-yara",
     category: "arabes",
-    brand: "Lataffa",
+    brand: "Lattafa",
     name: "Yara",
     description: "Perfume suave, femenino",
     gender: "femenino",
@@ -247,7 +248,7 @@ export const ARABES_PRODUCTS: CatalogProduct[] = [
     unitPrice: 45500,
     price: formatCurrency(45500, { spaceAfterSymbol: true }),
     image: PERFUME_IMAGES.minimalWhiteBottle,
-    imageAlt: "Perfume Lataffa Yara",
+    imageAlt: "Perfume Lattafa Yara",
     volumes: [
       { label: "100 ml", variant: "dark" },
       { label: "150 ml", variant: "dark" },
@@ -305,9 +306,9 @@ export const TESTERS_PRODUCTS: CatalogProduct[] = [
     ],
   },
   {
-    id: "tester-lataffa-emaan",
+    id: "tester-lattafa-emaan",
     category: "testers",
-    brand: "Lataffa",
+    brand: "Lattafa",
     name: "Emaan",
     description: "Perfume intenso, unisex",
     gender: "unisex",
@@ -315,7 +316,7 @@ export const TESTERS_PRODUCTS: CatalogProduct[] = [
     unitPrice: 41500,
     price: formatCurrency(41500, { spaceAfterSymbol: true }),
     image: PERFUME_IMAGES.minimalPerfumeBottle,
-    imageAlt: "Tester Lataffa Emaan",
+    imageAlt: "Tester Lattafa Emaan",
     volumes: [
       { label: "100 ml", variant: "dark" },
       { label: "150 ml", variant: "dark" },
@@ -342,9 +343,9 @@ export const TESTERS_PRODUCTS: CatalogProduct[] = [
 
 export const EXTRACTOS_PRODUCTS: CatalogProduct[] = [
   {
-    id: "extracto-lataffa-hayaati-black",
+    id: "extracto-lattafa-hayaati-black",
     category: "extractos",
-    brand: "Lataffa",
+    brand: "Lattafa",
     name: "Hayaati Black",
     description: "Perfume intenso, unisex",
     gender: "unisex",
@@ -352,16 +353,16 @@ export const EXTRACTOS_PRODUCTS: CatalogProduct[] = [
     unitPrice: 64000,
     price: formatCurrency(64000, { spaceAfterSymbol: true }),
     image: PERFUME_IMAGES.noirCutout,
-    imageAlt: "Extracto Lataffa Hayaati Black",
+    imageAlt: "Extracto Lattafa Hayaati Black",
     volumes: [
       { label: "100 ml", variant: "dark" },
       { label: "150 ml", variant: "dark" },
     ],
   },
   {
-    id: "extracto-lataffa-hayaati-gold",
+    id: "extracto-lattafa-hayaati-gold",
     category: "extractos",
-    brand: "Lataffa",
+    brand: "Lattafa",
     name: "Hayaati Gold",
     description: "Perfume intenso, masculino",
     gender: "masculino",
@@ -369,13 +370,13 @@ export const EXTRACTOS_PRODUCTS: CatalogProduct[] = [
     unitPrice: 68000,
     price: formatCurrency(68000, { spaceAfterSymbol: true }),
     image: PERFUME_IMAGES.goldCutout,
-    imageAlt: "Extracto Lataffa Hayaati Gold",
+    imageAlt: "Extracto Lattafa Hayaati Gold",
     volumes: [{ label: "100 ml", variant: "gold" }],
   },
   {
-    id: "extracto-lataffa-mayar",
+    id: "extracto-lattafa-mayar",
     category: "extractos",
-    brand: "Lataffa",
+    brand: "Lattafa",
     name: "Mayar",
     description: "Perfume suave, femenino",
     gender: "femenino",
@@ -383,7 +384,7 @@ export const EXTRACTOS_PRODUCTS: CatalogProduct[] = [
     unitPrice: 62500,
     price: formatCurrency(62500, { spaceAfterSymbol: true }),
     image: PERFUME_IMAGES.floralCutout,
-    imageAlt: "Extracto Lataffa Mayar",
+    imageAlt: "Extracto Lattafa Mayar",
     volumes: [
       { label: "100 ml", variant: "dark" },
       { label: "150 ml", variant: "dark" },
@@ -426,10 +427,34 @@ export const EXTRACTOS_PRODUCTS: CatalogProduct[] = [
 ];
 
 export const CATALOG_CATEGORIES: ProductCategorySection[] = [
-  { id: "decants", title: "Decants", products: DECANTS_PRODUCTS },
-  { id: "arabes", title: "Árabes", products: ARABES_PRODUCTS },
-  { id: "testers", title: "Testers", products: TESTERS_PRODUCTS },
-  { id: "extractos", title: "Extractos", products: EXTRACTOS_PRODUCTS },
+  {
+    id: "decants",
+    title: "Decants",
+    description:
+      "Fraccionados originales para probar cada fragancia antes de elegir tu frasco completo.",
+    products: DECANTS_PRODUCTS,
+  },
+  {
+    id: "arabes",
+    title: "Árabes",
+    description:
+      "Fragancias orientales intensas y duraderas de casas como Lattafa, Afnan y Armaf.",
+    products: ARABES_PRODUCTS,
+  },
+  {
+    id: "testers",
+    title: "Testers",
+    description:
+      "Presentaciones de probador con la misma fragancia original a un precio más accesible.",
+    products: TESTERS_PRODUCTS,
+  },
+  {
+    id: "extractos",
+    title: "Extractos",
+    description:
+      "Alta concentración aromática con mayor fijación y estela prolongada.",
+    products: EXTRACTOS_PRODUCTS,
+  },
 ];
 
 export const ALL_PRODUCTS: CatalogProduct[] = CATALOG_CATEGORIES.flatMap(
