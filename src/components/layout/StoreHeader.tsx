@@ -1,17 +1,18 @@
 import { useState } from "react";
-import { SITE_CONFIG } from "../../data/site";
-import { buildWhatsAppCheckoutUrl, useCart } from "../../hooks";
-import { CartModal } from "../cart/CartModal";
+import { SITE_CONFIG } from "@data/site";
+import { buildWhatsAppCheckoutUrl, useCart } from "@hooks";
+import { CartModal } from "@components/cart/CartModal";
 import { Navbar } from "./Navbar";
 import type {
   CartCheckoutData,
   CartItem,
   NavItem,
   SelectOption,
-} from "../types";
+} from "@components/types";
 
 export interface StoreHeaderProps {
   deliveryOptions?: SelectOption[];
+  meetingPoints?: string[];
   whatsappPhone?: string;
   initialItems?: CartItem[];
   navItems?: NavItem[];
@@ -19,6 +20,7 @@ export interface StoreHeaderProps {
 
 export function StoreHeader({
   deliveryOptions,
+  meetingPoints,
   whatsappPhone = SITE_CONFIG.whatsappPhone,
   initialItems,
   navItems,
@@ -56,6 +58,7 @@ export function StoreHeader({
         onQuantityChange={updateQuantity}
         onRemoveItem={removeItem}
         deliveryOptions={deliveryOptions}
+        meetingPoints={meetingPoints}
         onCheckout={handleCheckout}
       />
     </>

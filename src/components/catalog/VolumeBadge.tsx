@@ -1,4 +1,4 @@
-import type { VolumeVariant } from "../types";
+import type { VolumeVariant } from "@components/types";
 
 export interface VolumeBadgeProps {
   label: string;

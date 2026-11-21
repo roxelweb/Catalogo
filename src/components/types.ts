@@ -10,6 +10,12 @@ export interface ProductVolume {
   label: string;
   value?: string;
   variant?: VolumeVariant;
+  /** Precio final (con descuento aplicado si corresponde) para esta presentación. */
+  unitPrice?: number;
+  /** Precio regular antes de descuento, si la presentación está en oferta. */
+  originalPrice?: number;
+  /** Porcentaje de descuento activo (ej. 15 para 15% OFF). */
+  discountPercent?: number;
 }
 
 export interface Product {

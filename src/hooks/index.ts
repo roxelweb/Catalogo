@@ -4,6 +4,7 @@ export {
 } from "./useCarouselScroll";
 export {
   useCatalogFilters,
+  type AromaFilter,
   type CategoryFilter,
   type GenderFilter,
   type IntensityFilter,

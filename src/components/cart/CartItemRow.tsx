@@ -1,6 +1,6 @@
 import { QuantityStepper } from "./QuantityStepper";
 import { RemoveButton } from "./RemoveButton";
-import { formatCurrency, resolveImageSrc, type CartItem } from "../types";
+import { formatCurrency, resolveImageSrc, type CartItem } from "@components/types";
 
 export interface CartItemRowProps {
   item: CartItem;

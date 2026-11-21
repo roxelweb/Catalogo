@@ -1,5 +1,5 @@
-import { Button, type ButtonProps } from "../ui/Button";
-import { CartIcon } from "../ui/Icons";
+import { Button, type ButtonProps } from "@components/ui/Button";
+import { CartIcon } from "@components/ui/Icons";
 
 export interface AddToCartButtonProps
   extends Omit<ButtonProps, "variant" | "leftIcon" | "children"> {

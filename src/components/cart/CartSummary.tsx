@@ -1,4 +1,4 @@
-import { formatCurrency } from "../types";
+import { formatCurrency } from "@components/types";
 
 export interface CartSummaryProps {
   total: number;

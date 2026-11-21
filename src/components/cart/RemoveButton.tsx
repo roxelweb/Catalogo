@@ -1,5 +1,5 @@
 import type { ButtonHTMLAttributes, Ref } from "react";
-import { TrashIcon } from "../ui/Icons";
+import { TrashIcon } from "@components/ui/Icons";
 
 export interface RemoveButtonProps
   extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children"> {

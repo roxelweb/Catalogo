@@ -1,5 +1,5 @@
-import { Button, type ButtonProps } from "../ui/Button";
-import { FilterIcon } from "../ui/Icons";
+import { Button, type ButtonProps } from "@components/ui/Button";
+import { FilterIcon } from "@components/ui/Icons";
 
 export interface FilterButtonProps
   extends Omit<ButtonProps, "variant" | "pill" | "leftIcon" | "children"> {

@@ -14,10 +14,15 @@
     "paths": {
       "@/*": ["src/*"],
       "@assets/*": ["src/assets/*"],
+      "@components": ["src/components/index.ts"],
       "@components/*": ["src/components/*"],
+      "@data": ["src/data/index.ts"],
       "@data/*": ["src/data/*"],
+      "@hooks": ["src/hooks/index.ts"],
       "@hooks/*": ["src/hooks/*"],
       "@layouts/*": ["src/layouts/*"],
+      "@lib/*": ["src/lib/*"],
+      "@pages/*": ["src/pages/*"],
       "@styles/*": ["src/styles/*"]
     }
   }

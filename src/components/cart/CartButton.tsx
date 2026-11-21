@@ -6,8 +6,8 @@ import {
   type CSSProperties,
   type Ref,
 } from "react";
-import { CART_ITEM_ADDED_EVENT, useHydrated } from "../../hooks";
-import { CartIcon } from "../ui/Icons";
+import { CART_ITEM_ADDED_EVENT, useHydrated } from "@hooks";
+import { CartIcon } from "@components/ui/Icons";
 
 const BURST_RAY_ANGLES = [0, 45, 90, 135, 180, 225, 270, 315] as const;
 

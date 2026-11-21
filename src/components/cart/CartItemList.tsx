@@ -1,5 +1,5 @@
 import { CartItemRow } from "./CartItemRow";
-import type { CartItem } from "../types";
+import type { CartItem } from "@components/types";
 
 export interface CartItemListProps {
   items: CartItem[];

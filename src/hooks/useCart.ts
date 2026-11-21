@@ -5,8 +5,8 @@ import {
   type CartItem,
   type ImageSource,
   type Product,
-} from "../components/types";
-import { SITE_CONFIG } from "../data/site";
+} from "@components/types";
+import { SITE_CONFIG } from "@data/site";
 import { useHydrated } from "./useHydrated";
 import { useLocalStorage } from "./useLocalStorage";
 
@@ -260,19 +260,31 @@ export function useCart(options: UseCartOptions = {}): UseCartReturn {
 
   const addProduct = useCallback(
     (product: AddableProduct, selectedVolume?: string, quantity = 1) => {
-      const volume = selectedVolume ?? product.volumes[0]?.label;
+      const matchedVolume = selectedVolume
+        ? product.volumes.find(
+            (vol) =>
+              vol.value === selectedVolume || vol.label === selectedVolume,
+          )
+        : product.volumes[0];
+
+      const volumeLabel =
+        matchedVolume?.label ?? selectedVolume ?? product.volumes[0]?.label;
+      const volumeKey = matchedVolume?.value ?? volumeLabel;
       const unitPrice =
-        typeof product.unitPrice === "number" &&
-        Number.isFinite(product.unitPrice)
-          ? product.unitPrice
-          : parsePriceString(product.price);
+        typeof matchedVolume?.unitPrice === "number" &&
+        Number.isFinite(matchedVolume.unitPrice)
+          ? matchedVolume.unitPrice
+          : typeof product.unitPrice === "number" &&
+              Number.isFinite(product.unitPrice)
+            ? product.unitPrice
+            : parsePriceString(product.price);
 
       addItem({
-        id: buildCartItemId(product.id, volume),
+        id: buildCartItemId(product.id, volumeKey),
         productId: product.id,
         brand: product.brand,
         name: product.name,
-        volume,
+        volume: volumeLabel,
         unitPrice,
         quantity,
         image: product.image,

@@ -1,6 +1,6 @@
 import { useEffect, useId, useRef, useState, type CSSProperties } from "react";
-import { CloseIcon, MenuIcon } from "../ui/Icons";
-import type { NavItem } from "../types";
+import { CloseIcon, MenuIcon } from "@components/ui/Icons";
+import type { NavItem } from "@components/types";
 
 export interface NavMenuPopoverProps {
   navItems: NavItem[];

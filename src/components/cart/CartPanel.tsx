@@ -2,8 +2,8 @@ import { useId } from "react";
 import { CartCheckoutForm, type CartCheckoutFormValues } from "./CartCheckoutForm";
 import { CartItemList } from "./CartItemList";
 import { CartSummary } from "./CartSummary";
-import { CloseButton } from "../ui/CloseButton";
-import type { CartCheckoutData, CartItem, SelectOption } from "../types";
+import { CloseButton } from "@components/ui/CloseButton";
+import type { CartCheckoutData, CartItem, SelectOption } from "@components/types";
 
 export interface CartPanelProps {
   items: CartItem[];
@@ -14,6 +14,7 @@ export interface CartPanelProps {
   onRemoveItem?: (id: string) => void;
   onCheckout?: (data: CartCheckoutData) => void;
   deliveryOptions?: SelectOption[];
+  meetingPoints?: string[];
   nameLabel?: string;
   namePlaceholder?: string;
   deliveryLabel?: string;
@@ -40,6 +41,7 @@ export function CartPanel({
   onRemoveItem,
   onCheckout,
   deliveryOptions = DEFAULT_DELIVERY_OPTIONS,
+  meetingPoints,
   nameLabel,
   namePlaceholder,
   deliveryLabel,
@@ -103,6 +105,7 @@ export function CartPanel({
       <CartCheckoutForm
         labelledBy={resolvedTitleId}
         deliveryOptions={deliveryOptions}
+        meetingPoints={meetingPoints}
         nameLabel={nameLabel}
         namePlaceholder={namePlaceholder}
         deliveryLabel={deliveryLabel}

@@ -1,8 +1,13 @@
 import { useState } from "react";
 import { AddToCartButton } from "./AddToCartButton";
-import { ProductDescription, ProductTitle } from "../ui/Typography";
+import { ProductDescription, ProductTitle } from "@components/ui/Typography";
 import { VolumeBadge } from "./VolumeBadge";
-import { resolveImageSrc, type Product, type ProductVolume } from "../types";
+import {
+  formatCurrency,
+  resolveImageSrc,
+  type Product,
+  type ProductVolume,
+} from "@components/types";
 
 export interface ProductCardProps {
   product: Product;
@@ -65,6 +70,26 @@ export function ProductCard({
     onVolumeChange?.(volumeKey, product);
   };
 
+  const activeVolumeObj =
+    (activeVolume !== undefined
+      ? product.volumes.find(
+          (vol) => getVolumeKey(vol) === activeVolume || vol.label === activeVolume,
+        )
+      : undefined) ?? product.volumes[0];
+
+  const displayedPrice =
+    typeof activeVolumeObj?.unitPrice === "number" &&
+    Number.isFinite(activeVolumeObj.unitPrice)
+      ? formatCurrency(activeVolumeObj.unitPrice, { spaceAfterSymbol: true })
+      : product.price;
+
+  const hasDiscount =
+    typeof activeVolumeObj?.discountPercent === "number" &&
+    activeVolumeObj.discountPercent > 0 &&
+    typeof activeVolumeObj?.originalPrice === "number" &&
+    typeof activeVolumeObj?.unitPrice === "number" &&
+    activeVolumeObj.originalPrice > activeVolumeObj.unitPrice;
+
   const fullProductName = `${product.brand} ${product.name}`;
 
   return (
@@ -106,10 +131,24 @@ export function ProductCard({
       <div className="mt-auto space-y-0.5 mb-3.5">
         <ProductTitle brand={product.brand} name={product.name} />
         <ProductDescription>{product.description}</ProductDescription>
-        {product.price ? (
-          <p className="text-sm font-bold text-roxel-ink pt-1">
-            {product.price}
-          </p>
+        {displayedPrice ? (
+          <div className="flex flex-wrap items-baseline gap-2 pt-1">
+            <p className="text-sm font-bold tabular-nums text-roxel-ink">
+              {displayedPrice}
+            </p>
+            {hasDiscount && activeVolumeObj?.originalPrice !== undefined ? (
+              <>
+                <span className="text-xs tabular-nums text-roxel-ink-muted line-through">
+                  {formatCurrency(activeVolumeObj.originalPrice, {
+                    spaceAfterSymbol: true,
+                  })}
+                </span>
+                <span className="inline-flex items-center rounded-full bg-roxel-gold-400 px-1.5 py-0.5 text-[11px] font-bold leading-none text-roxel-ink">
+                  -{activeVolumeObj.discountPercent}%
+                </span>
+              </>
+            ) : null}
+          </div>
         ) : null}
       </div>
 

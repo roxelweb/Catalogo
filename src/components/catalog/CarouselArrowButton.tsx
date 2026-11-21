@@ -1,5 +1,5 @@
 import type { ButtonHTMLAttributes, Ref } from "react";
-import { ChevronLeftIcon, ChevronRightIcon } from "../ui/Icons";
+import { ChevronLeftIcon, ChevronRightIcon } from "@components/ui/Icons";
 
 export interface CarouselArrowButtonProps
   extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children"> {

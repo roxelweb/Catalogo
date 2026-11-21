@@ -1,7 +1,7 @@
 import { useId } from "react";
 import { ProductCarousel } from "./ProductCarousel";
-import { CategoryTitle, SectionDivider } from "../ui/Typography";
-import type { Product } from "../types";
+import { CategoryTitle, SectionDivider } from "@components/ui/Typography";
+import type { Product } from "@components/types";
 
 export interface CategorySectionProps {
   title: string;

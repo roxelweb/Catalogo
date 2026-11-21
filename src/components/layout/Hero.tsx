@@ -1,9 +1,9 @@
 import type { ReactNode } from "react";
-import backgroundTextureDesktop from "../../assets/background_texture_desktop.webp";
-import backgroundTextureMobile from "../../assets/background_texture_mobile.png";
-import heroLogo from "../../assets/Logotipo Roxel Essence Elegante.png";
-import { HeroTagline } from "../ui/Typography";
-import { resolveImageSrc, type ImageSource } from "../types";
+import backgroundTextureDesktop from "@assets/background_texture_desktop.webp";
+import backgroundTextureMobile from "@assets/background_texture_mobile.png";
+import heroLogo from "@assets/Logotipo Roxel Essence Elegante.png";
+import { HeroTagline } from "@components/ui/Typography";
+import { resolveImageSrc, type ImageSource } from "@components/types";
 
 export interface HeroProps {
   brand?: string;

@@ -1,6 +1,6 @@
-import { SITE_CONFIG } from "../../data/site";
-import { InstagramIcon, TikTokIcon, WhatsAppIcon } from "../ui/Icons";
-import type { SocialLink } from "../types";
+import { SITE_CONFIG } from "@data/site";
+import { InstagramIcon, TikTokIcon, WhatsAppIcon } from "@components/ui/Icons";
+import type { SocialLink } from "@components/types";
 
 export interface FooterProps {
   id?: string;

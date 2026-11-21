@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
-import { useCarouselScroll } from "../../hooks";
+import { useCarouselScroll } from "@hooks";
 import { CarouselArrowButton } from "./CarouselArrowButton";
 import { ProductCard } from "./ProductCard";
-import type { Product } from "../types";
+import type { Product } from "@components/types";
 
 export interface ProductCarouselProps {
   products: Product[];

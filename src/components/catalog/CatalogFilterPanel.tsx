@@ -1,10 +1,11 @@
 import { useMemo } from "react";
-import type { ProductCategorySection } from "../../data/products";
+import type { ProductCategorySection } from "@data/products";
 import type {
+  AromaFilter,
   CategoryFilter,
   GenderFilter,
   IntensityFilter,
-} from "../../hooks";
+} from "@hooks";
 import { FilterPillGroup, type FilterPillOption } from "./FilterPillGroup";
 
 export interface CatalogFilterPanelProps {
@@ -14,8 +15,12 @@ export interface CatalogFilterPanelProps {
   onCategoryChange: (category: CategoryFilter) => void;
   selectedGender: GenderFilter;
   onGenderChange: (gender: GenderFilter) => void;
-  selectedIntensity: IntensityFilter;
-  onIntensityChange: (intensity: IntensityFilter) => void;
+  selectedIntensity?: IntensityFilter;
+  onIntensityChange?: (intensity: IntensityFilter) => void;
+  availableAromas?: string[];
+  selectedAroma?: AromaFilter;
+  onAromaChange?: (aroma: AromaFilter) => void;
+  showIntensityFilter?: boolean;
   className?: string;
 }
 
@@ -40,8 +45,12 @@ export function CatalogFilterPanel({
   onCategoryChange,
   selectedGender,
   onGenderChange,
-  selectedIntensity,
+  selectedIntensity = "all",
   onIntensityChange,
+  availableAromas = [],
+  selectedAroma = "all",
+  onAromaChange,
+  showIntensityFilter = false,
   className = "",
 }: CatalogFilterPanelProps) {
   const categoryOptions = useMemo<Array<FilterPillOption<CategoryFilter>>>(
@@ -50,6 +59,14 @@ export function CatalogFilterPanel({
       ...categories.map((cat) => ({ value: cat.id, label: cat.title })),
     ],
     [categories],
+  );
+
+  const aromaOptions = useMemo<Array<FilterPillOption<AromaFilter>>>(
+    () => [
+      { value: "all", label: "Todos" },
+      ...availableAromas.map((aroma) => ({ value: aroma, label: aroma })),
+    ],
+    [availableAromas],
   );
 
   return (
@@ -71,12 +88,23 @@ export function CatalogFilterPanel({
         onChange={onGenderChange}
       />
 
-      <FilterPillGroup
-        label="Intensidad"
-        options={INTENSITY_OPTIONS}
-        value={selectedIntensity}
-        onChange={onIntensityChange}
-      />
+      {availableAromas.length > 0 && onAromaChange ? (
+        <FilterPillGroup
+          label="Aroma"
+          options={aromaOptions}
+          value={selectedAroma}
+          onChange={onAromaChange}
+        />
+      ) : null}
+
+      {showIntensityFilter && onIntensityChange ? (
+        <FilterPillGroup
+          label="Intensidad"
+          options={INTENSITY_OPTIONS}
+          value={selectedIntensity}
+          onChange={onIntensityChange}
+        />
+      ) : null}
     </div>
   );
 }

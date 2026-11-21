@@ -1,7 +1,7 @@
-import logoImg from "../../assets/logo.svg";
-import { CartButton } from "../cart/CartButton";
+import logoImg from "@assets/logo.svg";
+import { CartButton } from "@components/cart/CartButton";
 import { NavMenuPopover } from "./NavMenuPopover";
-import { resolveImageSrc, type ImageSource, type NavItem } from "../types";
+import { resolveImageSrc, type ImageSource, type NavItem } from "@components/types";
 
 export interface NavbarProps {
   logoSrc?: ImageSource;

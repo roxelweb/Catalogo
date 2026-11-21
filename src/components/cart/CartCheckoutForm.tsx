@@ -1,8 +1,8 @@
 import { useRef, useState, type FormEvent } from "react";
-import { SelectField } from "../ui/SelectField";
-import { TextField } from "../ui/TextField";
+import { SelectField } from "@components/ui/SelectField";
+import { TextField } from "@components/ui/TextField";
 import { WhatsAppCheckoutButton } from "./WhatsAppCheckoutButton";
-import type { SelectOption } from "../types";
+import type { SelectOption } from "@components/types";
 
 export interface CartCheckoutFormValues {
   fullName: string;
@@ -12,6 +12,7 @@ export interface CartCheckoutFormValues {
 export interface CartCheckoutFormProps {
   labelledBy?: string;
   deliveryOptions: SelectOption[];
+  meetingPoints?: string[];
   nameLabel?: string;
   namePlaceholder?: string;
   deliveryLabel?: string;
@@ -36,6 +37,7 @@ const validateDeliveryMethod = (value: string) =>
 export function CartCheckoutForm({
   labelledBy,
   deliveryOptions,
+  meetingPoints,
   nameLabel = "Nombre completo",
   namePlaceholder = "Ingrese su nombre",
   deliveryLabel = "Método de entrega",
@@ -137,6 +139,11 @@ export function CartCheckoutForm({
         name="deliveryMethod"
         placeholder={deliveryPlaceholder}
         options={deliveryOptions}
+        helperText={
+          meetingPoints && meetingPoints.length > 0
+            ? `Puntos de encuentro: ${meetingPoints.join(" · ")}`
+            : undefined
+        }
         required
         value={deliveryMethod}
         error={errors.deliveryMethod}

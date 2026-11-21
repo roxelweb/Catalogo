@@ -1,15 +1,15 @@
 import { useEffect, useId, useState } from "react";
-import type { ProductCategorySection } from "../../data/products";
-import { useCart, useCatalogFilters, type AddableProduct } from "../../hooks";
-import { Button } from "../ui/Button";
+import type { ProductCategorySection } from "@data/products";
+import { useCart, useCatalogFilters, type AddableProduct } from "@hooks";
+import { Button } from "@components/ui/Button";
 import { CatalogEmptyState } from "./CatalogEmptyState";
 import { CatalogFilterPanel } from "./CatalogFilterPanel";
 import { CategorySection } from "./CategorySection";
 import { FilterButton } from "./FilterButton";
-import { ToastNotification } from "../ui/ToastNotification";
-import { SectionTitle } from "../ui/Typography";
-import { WhatsAppButton } from "../ui/WhatsAppButton";
-import type { Product } from "../types";
+import { ToastNotification } from "@components/ui/ToastNotification";
+import { SectionTitle } from "@components/ui/Typography";
+import { WhatsAppButton } from "@components/ui/WhatsAppButton";
+import type { Product } from "@components/types";
 
 export interface CatalogSectionProps {
   categories: ProductCategorySection[];
@@ -41,6 +41,10 @@ export function CatalogSection({
     setSelectedGender,
     selectedIntensity,
     setSelectedIntensity,
+    selectedAroma,
+    setSelectedAroma,
+    availableAromas,
+    hasIntensities,
     activeFiltersCount,
     filteredCategories,
     resetFilters,
@@ -54,9 +58,14 @@ export function CatalogSection({
 
   const handleAddToCart = (product: Product, selectedVolume?: string) => {
     addProduct(product as AddableProduct, selectedVolume);
+    const volumeLabel = selectedVolume
+      ? (product.volumes.find(
+          (vol) => vol.value === selectedVolume || vol.label === selectedVolume,
+        )?.label ?? selectedVolume)
+      : product.volumes[0]?.label;
     setToastMessage(
       `${product.brand} • ${product.name}${
-        selectedVolume ? ` (${selectedVolume})` : ""
+        volumeLabel ? ` (${volumeLabel})` : ""
       } agregado al carrito`,
     );
   };
@@ -101,6 +110,10 @@ export function CatalogSection({
             onGenderChange={setSelectedGender}
             selectedIntensity={selectedIntensity}
             onIntensityChange={setSelectedIntensity}
+            availableAromas={availableAromas}
+            selectedAroma={selectedAroma}
+            onAromaChange={setSelectedAroma}
+            showIntensityFilter={hasIntensities && availableAromas.length === 0}
           />
         ) : null}
       </search>

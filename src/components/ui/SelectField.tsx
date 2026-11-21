@@ -1,6 +1,6 @@
 import { useId, type Ref, type SelectHTMLAttributes } from "react";
 import { CaretDownIcon } from "./Icons";
-import type { SelectOption } from "../types";
+import type { SelectOption } from "@components/types";
 
 export interface SelectFieldProps
   extends Omit<SelectHTMLAttributes<HTMLSelectElement>, "id"> {

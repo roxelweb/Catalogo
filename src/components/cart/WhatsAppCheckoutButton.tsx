@@ -1,5 +1,5 @@
 import type { ButtonHTMLAttributes, Ref } from "react";
-import { WhatsAppIcon } from "../ui/Icons";
+import { WhatsAppIcon } from "@components/ui/Icons";
 
 export interface WhatsAppCheckoutButtonProps
   extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children"> {

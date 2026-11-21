@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MinusIcon, PlusIcon } from "../ui/Icons";
+import { MinusIcon, PlusIcon } from "@components/ui/Icons";
 
 export interface QuantityStepperProps {
   value?: number;

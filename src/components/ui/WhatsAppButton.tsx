@@ -1,4 +1,4 @@
-import { SITE_CONFIG } from "../../data/site";
+import { SITE_CONFIG } from "@data/site";
 import { WhatsAppIcon2 } from "./Icons";
 
 export interface WhatsAppButtonProps {
