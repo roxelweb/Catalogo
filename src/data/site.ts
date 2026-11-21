@@ -1,4 +1,4 @@
-import type { SocialLink } from "../components/types";
+import type { SocialLink } from "@components/types";
 import { CONTACT_CONFIG } from "./contact";
 
 export const SITE_CONFIG = {

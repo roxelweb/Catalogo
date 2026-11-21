@@ -1,4 +1,4 @@
-import { resolveImageSrc } from "../components/types";
+import { resolveImageSrc, type SocialLink } from "@components/types";
 import type {
   CatalogProduct,
   ProductCategorySection,
@@ -10,6 +10,9 @@ export interface BuildStoreStructuredDataOptions {
   pageTitle: string;
   pageDescription: string;
   categories: ProductCategorySection[];
+  phoneDisplay?: string;
+  whatsappUrl?: string;
+  socialLinks?: readonly SocialLink[];
 }
 
 function formatProductSchemaName(product: CatalogProduct): string {
@@ -22,6 +25,7 @@ function formatProductSchemaName(product: CatalogProduct): string {
     case "extractos":
       return `Extracto ${baseName}`;
     case "arabes":
+    default:
       return baseName;
   }
 }
@@ -44,19 +48,22 @@ export function buildStoreStructuredData({
   pageTitle,
   pageDescription,
   categories,
+  phoneDisplay = SITE_CONFIG.phoneDisplay,
+  whatsappUrl = SITE_CONFIG.whatsappUrl,
+  socialLinks = SITE_CONFIG.socialLinks,
 }: BuildStoreStructuredDataOptions): Record<string, unknown> {
   const origin = site?.origin;
   const orgId = origin ? `${origin}/#organization` : "#organization";
   const websiteId = origin ? `${origin}/#website` : "#website";
   const pageId = origin ? `${origin}/#catalog-page` : "#catalog-page";
-  const sameAs = getVerifiedSocialProfileUrls(SITE_CONFIG.socialLinks);
+  const sameAs = getVerifiedSocialProfileUrls(socialLinks);
 
   const organizationNode: Record<string, unknown> = {
     "@type": ["OnlineStore", "Organization"],
     "@id": orgId,
     name: SITE_CONFIG.name,
     description: SITE_CONFIG.defaultDescription,
-    telephone: SITE_CONFIG.phoneDisplay,
+    telephone: phoneDisplay,
     areaServed: {
       "@type": "Country",
       name: SITE_CONFIG.countryName,
@@ -66,7 +73,7 @@ export function buildStoreStructuredData({
       contactType: "customer service",
       areaServed: SITE_CONFIG.countryCode,
       availableLanguage: ["es-AR", "es"],
-      url: SITE_CONFIG.whatsappUrl,
+      url: whatsappUrl,
     },
     openingHoursSpecification: [
       {
