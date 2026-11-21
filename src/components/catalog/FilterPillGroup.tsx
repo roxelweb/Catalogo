@@ -32,7 +32,7 @@ export function FilterPillGroup<T extends string>({
               type="button"
               aria-pressed={isActive}
               onClick={() => onChange(opt.value)}
-              className={`roxel-control inline-flex items-center justify-center min-h-8 px-3 py-1 rounded-full text-xs font-medium transition-colors touch-manipulation cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-roxel-ink ${
+              className={`roxel-control inline-flex items-center justify-center min-h-8 px-3 py-1 rounded-full text-xs font-medium transition-[color,background-color,transform] duration-150 motion-safe:active:scale-95 touch-manipulation cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-roxel-ink ${
                 isActive
                   ? "bg-roxel-gold-400 text-roxel-ink font-semibold ring-2 ring-roxel-ink/25 underline decoration-2 underline-offset-2"
                   : "bg-roxel-surface-subtle text-roxel-ink hover:bg-roxel-border-subtle"

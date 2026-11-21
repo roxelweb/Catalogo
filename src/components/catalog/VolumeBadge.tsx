@@ -27,7 +27,7 @@ export function VolumeBadge({
         type="button"
         onClick={onSelect}
         aria-pressed={selected}
-        className={`roxel-control inline-flex items-center justify-center min-h-6 min-w-6 px-2.5 py-0.5 rounded-full text-xs leading-tight transition-colors touch-manipulation cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-roxel-ink ${colorClasses} ${className}`}
+        className={`roxel-control inline-flex items-center justify-center min-h-6 min-w-6 px-2.5 py-0.5 rounded-full text-xs leading-tight transition-[color,background-color,transform] duration-150 motion-safe:active:scale-95 touch-manipulation cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-roxel-ink ${colorClasses} ${className}`}
       >
         {label}
       </button>

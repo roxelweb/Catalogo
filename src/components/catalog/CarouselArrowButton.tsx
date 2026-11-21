@@ -22,7 +22,7 @@ export function CarouselArrowButton({
       ref={ref}
       type={type}
       aria-label={ariaLabel ?? defaultLabel}
-      className={`roxel-control inline-flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-roxel-dark-900 hover:bg-roxel-dark-800 active:bg-roxel-dark-700 text-roxel-ink-inverse shadow-fab transition-colors touch-manipulation cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-roxel-gold-400 disabled:opacity-35 disabled:cursor-not-allowed ${className}`}
+      className={`roxel-control inline-flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-roxel-dark-900 hover:bg-roxel-dark-800 active:bg-roxel-dark-700 text-roxel-ink-inverse shadow-fab transition-[color,background-color,opacity,transform] duration-150 motion-safe:hover:enabled:scale-105 motion-safe:active:enabled:scale-95 touch-manipulation cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-roxel-gold-400 disabled:opacity-35 disabled:cursor-not-allowed ${className}`}
       {...props}
     >
       {direction === "previous" ? (

@@ -69,7 +69,8 @@ export function ProductCard({
 
   return (
     <article
-      className={`roxel-card ring-1 ring-roxel-ink/15 flex flex-col bg-roxel-surface-card border border-roxel-border-subtle rounded-xl p-3.5 sm:p-4 shadow-card hover:shadow-card-hover transition-shadow ${className}`}
+      id={product.id}
+      className={`group roxel-card scroll-mt-24 ring-1 ring-roxel-ink/15 flex flex-col bg-roxel-surface-card border border-roxel-border-subtle rounded-xl p-3.5 sm:p-4 shadow-card hover:shadow-card-hover motion-safe:hover:-translate-y-0.5 transition-[box-shadow,transform] duration-200 ${className}`}
     >
       {product.volumes.length > 0 ? (
         <div className="flex flex-wrap items-center gap-1.5 mb-3">
@@ -94,9 +95,11 @@ export function ProductCard({
         <img
           src={resolveImageSrc(product.image)}
           alt={product.imageAlt ?? fullProductName}
+          width={600}
+          height={450}
           loading="lazy"
           decoding="async"
-          className="max-h-full max-w-full object-contain"
+          className="max-h-full max-w-full object-contain transition-transform duration-300 ease-out motion-safe:group-hover:scale-[1.03]"
         />
       </div>
 

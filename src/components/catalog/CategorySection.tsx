@@ -5,6 +5,7 @@ import type { Product } from "../types";
 
 export interface CategorySectionProps {
   title: string;
+  description?: string;
   products: Product[];
   id?: string;
   showDivider?: boolean;
@@ -15,6 +16,7 @@ export interface CategorySectionProps {
 
 export function CategorySection({
   title,
+  description,
   products,
   id,
   showDivider = true,
@@ -27,9 +29,17 @@ export function CategorySection({
 
   return (
     <section aria-labelledby={headingId} className={`py-6 sm:py-8 ${className}`}>
-      <CategoryTitle id={headingId} className="mb-4 scroll-mt-20">
+      <CategoryTitle
+        id={headingId}
+        className={`${description ? "mb-1" : "mb-4"} scroll-mt-20`}
+      >
         {title}
       </CategoryTitle>
+      {description ? (
+        <p className="mb-4 text-xs sm:text-sm text-roxel-ink-muted">
+          {description}
+        </p>
+      ) : null}
 
       <ProductCarousel
         products={products}

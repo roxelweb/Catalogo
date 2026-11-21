@@ -23,9 +23,11 @@ export function AddToCartButton({
       variant="gold"
       size="md"
       fullWidth={fullWidth}
-      leftIcon={<CartIcon className="w-4 h-4 shrink-0" />}
+      leftIcon={
+        <CartIcon className="w-4 h-4 shrink-0 transition-transform duration-200 motion-safe:group-hover/cta:scale-110" />
+      }
       aria-label={resolvedAriaLabel}
-      className={`hover:bg-roxel-dark-900! hover:text-roxel-gold-400! active:bg-roxel-dark-800! ${className}`}
+      className={`group/cta hover:bg-roxel-dark-900! hover:text-roxel-gold-400! active:bg-roxel-dark-800! active:text-roxel-gold-400! ${className}`}
       {...props}
     >
       <span>{label}</span>

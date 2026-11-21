@@ -69,39 +69,41 @@ export function CatalogSection({
         {title}
       </SectionTitle>
 
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-        <FilterButton
-          isOpen={filtersOpen}
-          aria-controls={filterPanelId}
-          activeCount={activeFiltersCount}
-          onClick={() => setFiltersOpen((prev) => !prev)}
-          className="text-roxel-gold-300!"
-        />
+      <search aria-label="Filtrar catálogo">
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+          <FilterButton
+            isOpen={filtersOpen}
+            aria-controls={filterPanelId}
+            activeCount={activeFiltersCount}
+            onClick={() => setFiltersOpen((prev) => !prev)}
+            className="text-roxel-gold-300!"
+          />
 
-        {activeFiltersCount > 0 ? (
-          <Button
-            variant="outline"
-            size="sm"
-            pill
-            onClick={resetFilters}
-          >
-            Limpiar filtros
-          </Button>
+          {activeFiltersCount > 0 ? (
+            <Button
+              variant="outline"
+              size="sm"
+              pill
+              onClick={resetFilters}
+            >
+              Limpiar filtros
+            </Button>
+          ) : null}
+        </div>
+
+        {filtersOpen ? (
+          <CatalogFilterPanel
+            id={filterPanelId}
+            categories={categories}
+            selectedCategory={selectedCategory}
+            onCategoryChange={setSelectedCategory}
+            selectedGender={selectedGender}
+            onGenderChange={setSelectedGender}
+            selectedIntensity={selectedIntensity}
+            onIntensityChange={setSelectedIntensity}
+          />
         ) : null}
-      </div>
-
-      {filtersOpen ? (
-        <CatalogFilterPanel
-          id={filterPanelId}
-          categories={categories}
-          selectedCategory={selectedCategory}
-          onCategoryChange={setSelectedCategory}
-          selectedGender={selectedGender}
-          onGenderChange={setSelectedGender}
-          selectedIntensity={selectedIntensity}
-          onIntensityChange={setSelectedIntensity}
-        />
-      ) : null}
+      </search>
 
       {filteredCategories.length > 0 ? (
         <div>
@@ -110,6 +112,7 @@ export function CatalogSection({
               key={category.id}
               id={category.id}
               title={category.title}
+              description={category.description}
               products={category.products}
               showDivider={index < filteredCategories.length - 1}
               onAddToCart={handleAddToCart}
