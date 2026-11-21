@@ -56,13 +56,13 @@ export function Hero({
           aria-hidden="true"
           fetchPriority="high"
           decoding="async"
-          className="absolute inset-0 h-full w-full object-cover opacity-80 pointer-events-none select-none"
+          className="absolute inset-0 h-full w-full object-cover object-center pointer-events-none select-none"
         />
       </picture>
 
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-roxel-dark-950/45 pointer-events-none"
+        className="absolute inset-0 bg-roxel-dark-950/20 pointer-events-none"
       />
 
       <div className="relative z-10 mx-auto max-w-4xl px-4 sm:px-6 py-20 sm:py-28 flex flex-col items-center text-center gap-5">
