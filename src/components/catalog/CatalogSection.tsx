@@ -74,7 +74,7 @@ export function CatalogSection({
     <div
       className={`mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 sm:py-14 ${className}`}
     >
-      <SectionTitle id="catalogo" className="mb-6 scroll-mt-20">
+      <SectionTitle id="catalogo" className="mb-6 scroll-mt-28">
         {title}
       </SectionTitle>
 
@@ -100,22 +100,33 @@ export function CatalogSection({
           ) : null}
         </div>
 
-        {filtersOpen ? (
-          <CatalogFilterPanel
-            id={filterPanelId}
-            categories={categories}
-            selectedCategory={selectedCategory}
-            onCategoryChange={setSelectedCategory}
-            selectedGender={selectedGender}
-            onGenderChange={setSelectedGender}
-            selectedIntensity={selectedIntensity}
-            onIntensityChange={setSelectedIntensity}
-            availableAromas={availableAromas}
-            selectedAroma={selectedAroma}
-            onAromaChange={setSelectedAroma}
-            showIntensityFilter={hasIntensities && availableAromas.length === 0}
-          />
-        ) : null}
+        <div
+          aria-hidden={!filtersOpen}
+          inert={!filtersOpen}
+          className={`grid transition-[grid-template-rows,opacity,margin] duration-250 ease-out motion-reduce:transition-none ${
+            filtersOpen
+              ? "grid-rows-[1fr] opacity-100 mb-8"
+              : "grid-rows-[0fr] opacity-0 mb-0 pointer-events-none"
+          }`}
+        >
+          <div className="overflow-hidden">
+            <CatalogFilterPanel
+              id={filterPanelId}
+              categories={categories}
+              selectedCategory={selectedCategory}
+              onCategoryChange={setSelectedCategory}
+              selectedGender={selectedGender}
+              onGenderChange={setSelectedGender}
+              selectedIntensity={selectedIntensity}
+              onIntensityChange={setSelectedIntensity}
+              availableAromas={availableAromas}
+              selectedAroma={selectedAroma}
+              onAromaChange={setSelectedAroma}
+              showIntensityFilter={hasIntensities && availableAromas.length === 0}
+              className="mb-0!"
+            />
+          </div>
+        </div>
       </search>
 
       {filteredCategories.length > 0 ? (

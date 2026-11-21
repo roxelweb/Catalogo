@@ -72,7 +72,7 @@ export function CatalogFilterPanel({
   return (
     <div
       id={id}
-      className={`roxel-panel-in mb-8 rounded-xl border border-roxel-border-subtle bg-roxel-surface-card p-4 sm:p-5 shadow-card space-y-4 ${className}`}
+      className={`mb-8 rounded-xl border border-roxel-border-subtle bg-roxel-surface-card p-4 sm:p-5 shadow-card space-y-4 ${className}`}
     >
       <FilterPillGroup
         label="Categoría"
