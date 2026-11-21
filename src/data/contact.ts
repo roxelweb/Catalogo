@@ -11,7 +11,7 @@ export interface ContactPhoneConfig {
  * Número comercial por defecto (fallback mientras se conecta con el backend).
  * Modificá este valor o reemplazá `CONTACT_CONFIG` con la respuesta del back.
  */
-const DEFAULT_PHONE_DIGITS = "541124935416";
+const DEFAULT_PHONE_DIGITS = "541122334455";
 
 function formatArgentinaPhoneDisplay(digits: string): string {
   const clean = digits.replace(/\D/g, "");
