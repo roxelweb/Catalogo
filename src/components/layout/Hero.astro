@@ -6,13 +6,22 @@ import heroLogo from "@assets/Logotipo Roxel Essence Elegante.png";
 
 interface Props {
   logoAlt?: string;
+  description?: string;
   className?: string;
 }
 
 const {
   logoAlt = "Roxel Essence — Perfumes árabes, decants, testers y extractos",
+  description,
   className = "",
 } = Astro.props;
+
+const descriptionLines = description
+  ? description
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter(Boolean)
+  : [];
 
 const [
   desktopBgAvif,
@@ -152,9 +161,22 @@ const logoSizes = "(max-width: 639px) 288px, (max-width: 767px) 384px, 448px";
     <p
       class="text-center text-sm sm:text-base leading-relaxed text-roxel-ink-inverse-muted max-w-2xl mx-auto roxel-hero-tagline"
     >
-      Descubrí perfumes árabes, decants, testers y extractos de calidad a
-      precios accesibles.<br class="hidden sm:inline" /> Nos importa ofrecerte
-      variedad, cercanía y transparencia en cada compra.
+      {
+        descriptionLines.length > 0 ? (
+          descriptionLines.map((line, index) => (
+            <>
+              {index > 0 ? <br /> : null}
+              {line}
+            </>
+          ))
+        ) : (
+          <>
+            Descubrí perfumes árabes, decants, testers y extractos de calidad a
+            precios accesibles.<br class="hidden sm:inline" /> Nos importa
+            ofrecerte variedad, cercanía y transparencia en cada compra.
+          </>
+        )
+      }
     </p>
   </div>
 

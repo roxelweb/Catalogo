@@ -1,7 +1,13 @@
 ---
 import { Footer, StoreHeader } from "@/components";
-import { DELIVERY_METHOD_OPTIONS } from "@/data";
+import { loadStoreData } from "@/data";
 import Layout from "@layouts/Layout.astro";
+
+const store = await loadStoreData();
+const rootNavItems = store.navItems.map((item) => ({
+  ...item,
+  href: item.href.startsWith("#") ? `/${item.href}` : item.href,
+}));
 ---
 
 <Layout
@@ -9,7 +15,13 @@ import Layout from "@layouts/Layout.astro";
   description="La página que buscás no existe en Roxel Essence. Volvé al catálogo de perfumes."
   noindex={true}
 >
-  <StoreHeader client:load deliveryOptions={DELIVERY_METHOD_OPTIONS} />
+  <StoreHeader
+    client:load
+    deliveryOptions={store.deliveryOptions}
+    meetingPoints={store.meetingPoints}
+    whatsappPhone={store.contact.whatsappPhone}
+    navItems={rootNavItems}
+  />
   <main
     id="contenido-principal"
     class="bg-roxel-surface px-4 sm:px-6 lg:px-8 py-24 sm:py-32"
@@ -38,5 +50,11 @@ import Layout from "@layouts/Layout.astro";
       </div>
     </div>
   </main>
-  <Footer id="contacto" />
+  <Footer
+    id="contacto"
+    schedule={store.contact.schedule}
+    phoneDisplay={store.contact.phoneDisplay}
+    phoneHref={store.contact.whatsappUrl}
+    socialLinks={store.contact.socialLinks}
+  />
 </Layout>

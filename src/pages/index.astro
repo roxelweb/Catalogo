@@ -2,22 +2,26 @@
 import { CatalogSection, Footer, StoreHeader } from "@/components";
 import {
   buildStoreStructuredData,
-  CATALOG_CATEGORIES,
-  DELIVERY_METHOD_OPTIONS,
   extractExternalImageOrigins,
+  loadStoreData,
   SITE_CONFIG,
 } from "@/data";
 import Hero from "@components/layout/Hero.astro";
 import Layout from "@layouts/Layout.astro";
 
+const store = await loadStoreData();
+
 const jsonLd = buildStoreStructuredData({
   site: Astro.site,
   pageTitle: SITE_CONFIG.defaultTitle,
   pageDescription: SITE_CONFIG.defaultDescription,
-  categories: CATALOG_CATEGORIES,
+  categories: store.categories,
+  phoneDisplay: store.contact.phoneDisplay,
+  whatsappUrl: store.contact.whatsappUrl,
+  socialLinks: store.contact.socialLinks,
 });
 
-const dnsPrefetchOrigins = extractExternalImageOrigins(CATALOG_CATEGORIES);
+const dnsPrefetchOrigins = extractExternalImageOrigins(store.categories);
 ---
 
 <Layout
@@ -26,13 +30,26 @@ const dnsPrefetchOrigins = extractExternalImageOrigins(CATALOG_CATEGORIES);
   jsonLd={jsonLd}
   dnsPrefetchOrigins={dnsPrefetchOrigins}
 >
-  <StoreHeader client:load deliveryOptions={DELIVERY_METHOD_OPTIONS} />
-  <Hero />
+  <StoreHeader
+    client:load
+    deliveryOptions={store.deliveryOptions}
+    meetingPoints={store.meetingPoints}
+    whatsappPhone={store.contact.whatsappPhone}
+    navItems={store.navItems}
+  />
+  <Hero description={store.heroDescription} />
   <main id="contenido-principal" class="bg-roxel-surface overflow-x-clip">
     <CatalogSection
       client:visible={{ rootMargin: "200px" }}
-      categories={CATALOG_CATEGORIES}
+      categories={store.categories}
+      whatsappPhone={store.contact.whatsappPhone}
     />
   </main>
-  <Footer id="contacto" />
+  <Footer
+    id="contacto"
+    schedule={store.contact.schedule}
+    phoneDisplay={store.contact.phoneDisplay}
+    phoneHref={store.contact.whatsappUrl}
+    socialLinks={store.contact.socialLinks}
+  />
 </Layout>
