@@ -34,8 +34,11 @@ export function CartItemRow({
         <img
           src={resolveImageSrc(item.image)}
           alt={item.imageAlt ?? fullTitle}
+          width={112}
+          height={128}
           loading="lazy"
           decoding="async"
+          fetchPriority="low"
           className="max-h-full max-w-full object-contain"
         />
       </div>

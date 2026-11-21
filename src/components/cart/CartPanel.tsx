@@ -63,9 +63,12 @@ export function CartPanel({
     fullName,
     deliveryMethod,
   }: CartCheckoutFormValues) => {
+    const selectedDelivery = deliveryOptions.find(
+      (option) => option.value === deliveryMethod,
+    );
     onCheckout?.({
       fullName,
-      deliveryMethod,
+      deliveryMethod: selectedDelivery?.label ?? deliveryMethod,
       items,
       total,
     });

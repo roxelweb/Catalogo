@@ -7,6 +7,56 @@ export interface CartModalProps extends CartPanelProps {
   placement?: "center" | "right";
 }
 
+let supportsDisplayTransition: boolean | undefined;
+
+function canTransitionDisplay(): boolean {
+  if (supportsDisplayTransition !== undefined) return supportsDisplayTransition;
+  if (
+    typeof window === "undefined" ||
+    !window.CSS?.supports?.("transition-behavior", "allow-discrete") ||
+    !document.body
+  ) {
+    return false;
+  }
+  const probe = document.createElement("div");
+  probe.style.cssText =
+    "transition: display 1s allow-discrete !important; display: block;";
+  document.body.appendChild(probe);
+  getComputedStyle(probe).display;
+  probe.style.display = "none";
+  supportsDisplayTransition = getComputedStyle(probe).display === "block";
+  probe.remove();
+  return supportsDisplayTransition;
+}
+
+function supportsTopLayerExit(): boolean {
+  return (
+    typeof window !== "undefined" &&
+    Boolean(window.CSS?.supports?.("overlay", "auto")) &&
+    canTransitionDisplay()
+  );
+}
+
+async function closeTopLayer(dialog: HTMLDialogElement): Promise<void> {
+  if (!dialog.open) return;
+  if (!supportsTopLayerExit()) {
+    if (dialog.hasAttribute("data-closing")) return;
+    dialog.setAttribute("data-closing", "");
+    const animations = dialog.getAnimations({ subtree: true });
+    if (animations.length > 0) {
+      await Promise.race([
+        Promise.allSettled(animations.map((a) => a.finished)),
+        new Promise((resolve) => setTimeout(resolve, 1000)),
+      ]);
+    }
+    if (!dialog.hasAttribute("data-closing")) return;
+    dialog.removeAttribute("data-closing");
+  }
+  if (dialog.open) {
+    dialog.close();
+  }
+}
+
 export function CartModal({
   open,
   onClose,
@@ -28,10 +78,13 @@ export function CartModal({
     const dialog = dialogRef.current;
     if (!dialog) return;
 
-    if (open && !dialog.open) {
-      dialog.showModal();
-    } else if (!open && dialog.open) {
-      dialog.close();
+    if (open) {
+      dialog.removeAttribute("data-closing");
+      if (!dialog.open) {
+        dialog.showModal();
+      }
+    } else if (dialog.open) {
+      void closeTopLayer(dialog);
     }
   }, [open]);
 
@@ -40,11 +93,18 @@ export function CartModal({
     if (!dialog) return;
 
     const handleClose = () => {
+      dialog.removeAttribute("data-closing");
       dialog.returnValue = "";
       onCloseRef.current();
     };
 
+    const handleCancel = (event: Event) => {
+      event.preventDefault();
+      void closeTopLayer(dialog);
+    };
+
     dialog.addEventListener("close", handleClose);
+    dialog.addEventListener("cancel", handleCancel);
 
     // Fallback for browsers lacking <dialog closedby="any">
     let removeBackdropListeners: (() => void) | undefined;
@@ -68,7 +128,7 @@ export function CartModal({
       };
       const handlePointerUp = (e: PointerEvent) => {
         if (pressedOutside && isOutside(e)) {
-          dialog.close();
+          void closeTopLayer(dialog);
         }
         pressedOutside = false;
       };
@@ -83,6 +143,7 @@ export function CartModal({
 
     return () => {
       dialog.removeEventListener("close", handleClose);
+      dialog.removeEventListener("cancel", handleCancel);
       removeBackdropListeners?.();
     };
   }, []);
@@ -90,7 +151,7 @@ export function CartModal({
   const handleCloseRequest = () => {
     const dialog = dialogRef.current;
     if (dialog?.open) {
-      dialog.close();
+      void closeTopLayer(dialog);
     } else {
       onClose();
     }
@@ -104,6 +165,7 @@ export function CartModal({
   return (
     <dialog
       ref={dialogRef}
+      data-placement={placement}
       aria-labelledby={resolvedTitleId}
       {...({ closedby: "any" } as Record<string, string>)}
       className={`roxel-dialog ${placementClasses} ${className}`}
