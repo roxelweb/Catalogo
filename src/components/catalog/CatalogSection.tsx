@@ -71,10 +71,9 @@ export function CatalogSection({
   };
 
   return (
-    <div
-      className={`mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 sm:py-14 ${className}`}
-    >
-      <SectionTitle id="catalogo" className="mb-6 scroll-mt-28">
+    <div className={`py-10 sm:py-14 ${className}`}>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <SectionTitle id="catalogo" className="mb-6 scroll-mt-28">
         {title}
       </SectionTitle>
 
@@ -147,10 +146,11 @@ export function CatalogSection({
         <CatalogEmptyState onReset={resetFilters} />
       )}
 
-      <ToastNotification message={toastMessage} />
+        <ToastNotification message={toastMessage} />
+      </div>
 
       {showWhatsAppButton ? (
-        <div className="sticky bottom-6 z-40 mt-6 flex justify-end pointer-events-none">
+        <div className="sticky bottom-6 z-40 mt-6 px-4 sm:px-6 lg:px-8 flex justify-end pointer-events-none">
           <WhatsAppButton
             phoneNumber={whatsappPhone}
             floating={false}
