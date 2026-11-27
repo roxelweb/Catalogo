@@ -487,3 +487,50 @@
     animation: roxel-toast-in 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 }
+
+/* Mobile navbar slide-down & staggered item reveal */
+@media (width < 40rem) {
+  .roxel-mobile-nav {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .roxel-mobile-nav[data-open="true"] {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .roxel-mobile-nav-inner {
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .roxel-mobile-nav {
+      transition:
+        grid-template-rows 280ms cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 220ms ease,
+        visibility 280ms;
+      transition-behavior: allow-discrete;
+    }
+
+    .roxel-mobile-nav-item {
+      opacity: 0;
+      translate: 0 -0.375rem;
+      transition:
+        opacity 200ms ease,
+        translate 240ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .roxel-mobile-nav[data-open="true"] .roxel-mobile-nav-item {
+      opacity: 1;
+      translate: 0 0;
+      transition-delay: calc(var(--item-index, 0) * 35ms + 50ms);
+    }
+  }
+}
